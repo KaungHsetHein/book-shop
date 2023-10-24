@@ -32,7 +32,7 @@ public class LoginController {
         Customer customer = customerDao.findByName(customerName)
                         .orElseThrow(()-> new UsernameNotFoundException(customerName +"Not found!"));
        // model.addAttribute("customerName");
-        model.addAttribute("items",customer.getBookItems());
+       // model.addAttribute("items",customer.getBookItems());
         return "accountInfo";
     }
 }

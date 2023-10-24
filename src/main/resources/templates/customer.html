@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/masterLayout :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main role="main">
+  <div class="container my-4">
+    <hr class="my-4">
+    <form id="find" th:action="@{/}" method="post">
+      <input id="toFind" name="id" hidden>
+    </form>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      let toFind = document.getElementById('toFind');
+      const handler = (id) => {
+        toFind.value = id;
+        console.log(id);
+        document.forms['find'].submit();
+      }
+      /*]]>*/
+    </script>
+    <form th:object="${customer}" th:action="@{/save-customer}" method="post">
+      <div class="row">
+        <div class="form-group col">
+          <label for="id">Id</label>
+          <input th:value="${id}" id="id" type="text" th:field="*{id}" class="form-control">
+        </div>
+        <div class="form-group col">
+          <label for="name">Name</label>
+          <input th:value="${name}" id="name" type="text" th:field="*{name}" class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="email">Email</label>
+          <input th:value="${email}" id="email" type="text" th:field="*{email}" class="form-control">
+        </div>
+        <div class="form-group col">
+          <label for="phone">Phone</label>
+          <input th:value="${phone}" id="phone" type="text" th:field="*{phone}" class="form-control">
+        </div>
+
+      </div>
+      <div class=" form-group col">
+        <label for="state"> State</label>
+        <select id="state" name="planet" th:field="*{state}">
+          <option class="form-inline" th:each="planet : ${T(com.example.bookshop.entity.State).values()}"
+                  th:value="${planet}" th:text="${planet}"></option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea  th:value="${address}" id="address" type="text" th:field="*{address}" class="form-control form-text"></textarea>
+      </div>
+
+      <div>
+        <input type="submit" class="btn btn-primary" value="save">
+        <input type="submit" class="btn btn-success" value="update">
+        <a th:href="@{/find-all}" class="btn btn-success">Browse List</a>
+      </div>
+
+    </form>
+    <form th:action="@{/}" method="post">
+      <input type="text" placeholder="Search By Name Or Id"/>
+      <a th:href="@{/search}" class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></a>
+      <div class="mt-2">
+
+      </div>
+    </form>
+    <div class="row">
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+
+          </div>
+
+          <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+              <td>ID</td>
+              <td>Name</td>
+              <td>Address</td>
+              <td>State</td>
+              <td>Email</td>
+              <td>Phone</td>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:onclick="handler([[${item.id}]])" th:each="item : ${customerList}">
+              <td th:text="${item.id}"></td>
+              <td th:text="${item.name}"></td>
+              <td th:text="${item.address}"></td>
+              <td th:text="${item.state}"></td>
+              <td th:text="${item.email}"></td>
+              <td th:text="${item.phone}"></td>
+              <td><a th:href="@{'/delete/'+ ${item.id}}" class="btn btn-outline-danger">Delete</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

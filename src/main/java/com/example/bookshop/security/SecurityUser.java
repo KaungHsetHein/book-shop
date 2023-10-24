@@ -13,14 +13,16 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class SecurityUser implements UserDetails {
     private final Customer customer;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Stream.of(new SimpleGrantedAuthority(customer.getRole().name())).collect(Collectors.toList());
+        return null;
     }
 
     @Override
     public String getPassword() {
-        return customer.getPassword();
+        return null;
     }
 
     @Override

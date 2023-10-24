@@ -2,6 +2,7 @@ package com.example.bookshop.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,24 +14,24 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true)
     private String name;
-    private String phoneNumber;
+    private String address;
+
+    private State state;
     private String email;
-    private String password;
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<BookItems> bookItems = new HashSet<>();
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String phone;
 
-    public void  addBook(BookItems bookItems){
-        bookItems.setCustomer(this);
-        this.bookItems.add(bookItems);
+    public Customer(int id, String name, String address, State state, String email, String phone) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.state = state;
+        this.email = email;
+        this.phone = phone;
     }
-
 }
-

@@ -19,8 +19,6 @@ public class BookItems {
     private int quantity ;
 
     private double sum;
-    @ManyToOne
-    private Customer customer;
 
     public BookItems(int id, String title, String author, double price, int quantity, double sum) {
         this.id = id;

@@ -3,6 +3,7 @@ package com.example.bookshop.controller;
 import com.example.bookshop.ds.CartItem;
 import com.example.bookshop.entity.Book;
 import com.example.bookshop.entity.Customer;
+import com.example.bookshop.entity.State;
 import com.example.bookshop.service.BookService;
 import com.example.bookshop.service.CartService;
 import com.example.bookshop.service.CustomerService;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -55,24 +57,17 @@ public class BookController {
 
       //  cartService.setValueRedener(true);
         //cartService.clearCart();
-        return "redirect:/book/register";
+        return "redirect:/book/books";
     }
     @GetMapping("/register")
     public String registerCustomer(Model model){
         model.addAttribute("customer",new Customer());
-        return "register";
+       // model.addAttribute("state",)
+        return "customer";
     }
-    @PostMapping("/save-customer")
-    public String saveCustomer(Customer customer, BindingResult result){
-        if (result.hasErrors()){
-            return "register";
-        }
-        else {
-            customerService.saveCustomer(customer);
-            cartService.clearCart();
-            return "redirect:/login";
-        }
-    }
+
+
+
 
     @GetMapping("/books/view/cart")
     public String viewCart(Model model){
